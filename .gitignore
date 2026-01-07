@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+
+# Editor / IDE
+.vscode/
+
+# Competitive Programming tools
+.cph/
+
+# Build artifacts
+*.out
+*.exe
+*.o
+*.obj
+
+# Temp / logs
+*.log
+*.tmp
+*.swp
+
+# Build dirs
+build/
+bin/

@@ -1,4 +1,13 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+#include <map>
+#include <set>
+#include <queue>
+#include <stack>
+#include <unordered_map>
+#include <unordered_set>
 using namespace std;
 
 // Macros for faster coding
@@ -63,16 +72,54 @@ ll power(ll x, ll y, ll mod = MOD) {
 
 // ======================== SOLUTION STARTS HERE ========================
 
+// to traverse the knight in all 4 directions, we can use the coordinates
+// this coordinates is designed in terms of 4 quadrants.
+
+int dx[4] = {-1, 1, -1, 1}, dy[4] = {-1, -1, 1, 1};
+
 void solve() {
 
-    
+    ll a, b;
+    cin >> a >> b;
+    ll x_king, y_king;
+    cin >> x_king >> y_king;
+    ll x_queen, y_queen;
+    cin >> x_queen >> y_queen;
+
+    // to store the hits of the king and queen, let's use a set
+    // we use a set because, it provides a way to do these operations 
+    // in a logarithmic time. 
+    set<pll> king_hits, queen_hits;
+
+
+    // find all possible hits by the king and queen and store them into the set
+    // this can be done by using the direction vectors
+    // here, the knight can move in (a,b) or (b,a) directions. 
+    for(int i=0; i<4; i++){
+        king_hits.insert({x_king + dx[i] * a, y_king + dy[i] * b});
+        king_hits.insert({x_king + dx[i] * b, y_king + dy[i] * a});
+
+        queen_hits.insert({x_queen + dx[i] * a, y_queen + dy[i] * b});
+        queen_hits.insert({x_queen + dx[i] * b, y_queen + dy[i] * a});
+    }
+
+    // now, find the intersection of king_hits and queen_hits
+    // for this, we have to count the similar entries in both sets
+    int ans = 0;
+    for(auto position : king_hits){
+        if(queen_hits.find(position) != queen_hits.end())
+            ans++;
+    }
+
+    cout << ans << endl;
+
 }
 
 int main() {
     fastIO();
     
     int t = 1;
-    cin >> t;  // Comment this line if single test case
+    cin >> t; 
     
     while(t--) {
         solve();
